@@ -19,6 +19,9 @@
 *.tar.gz
 *.rar
 
+# Vim temporary files
+*.swp
+
 # Need to keep gradle-wrapper.jar even if *.jar files are ignored.
 !gradle/wrapper/gradle-wrapper.jar
 

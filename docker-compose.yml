@@ -1,0 +1,35 @@
+
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpasswd
+      POSTGRES_DB: keykdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  keykloak:
+    depends_on:
+      - postgres
+    container_name: keycloak_container
+    image: jboss/keycloak
+    restart: unless-stopped
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: keykdb
+      DB_USER: pguser
+      DB_PASSWORD: pgpasswd
+    ports:
+      - "8081:8080"
+
+volumes:
+  postgres_data:
+
+
